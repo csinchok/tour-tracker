@@ -9,6 +9,7 @@ pip-selfcheck.json
 
 *.sqlite3
 
+# Don't check in the static files...
 public/static
 !public/static/README.md
 
