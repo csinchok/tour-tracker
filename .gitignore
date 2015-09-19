@@ -13,6 +13,10 @@ pip-selfcheck.json
 public/static
 !public/static/README.md
 
+# Don't check in the media files...
+public/media
+!public/media/photos/README.md
+
 # Don't check in the settings...
 tourtracker/local.py
 tourtracker/production.py
