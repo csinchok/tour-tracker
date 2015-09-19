@@ -1,0 +1,17 @@
+*.py[co]
+__pycache__
+
+bin
+include
+lib
+pyvenv.cfg
+pip-selfcheck.json
+
+*.sqlite3
+
+public/static
+!public/static/README.md
+
+# Don't check in the settings...
+tourtracker/local.py
+tourtracker/production.py

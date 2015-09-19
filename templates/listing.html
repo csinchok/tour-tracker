@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for ride in rides %}
+<article class='ride'>
+    <div class='description'>
+        <h2>{{ ride.name }}</h2>
+        <h4>{{ ride.start|date:"l F j, Y" }}</h4>
+        
+        <div class="mileage">{{ ride.distance }} Miles</div>
+        <div class="average-speed">{{ ride.average_speed }} MPH</div>
+
+        <div class="ride-time">{{ ride.ride_time }}</div>
+        <div class="stopped-time">{{ ride.stopped_time }}</div>
+    </div>
+
+    <div class="map" data-ride-id="{{ ride.id }}">
+    </div>
+</article>
+{% endfor %}
+{% endblock %}

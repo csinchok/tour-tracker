@@ -1,0 +1,32 @@
+{% load pipeline mapbox %}<!doctype html>
+<html lang="en">
+    <head>
+        <title>TourTracker</title>
+
+        <meta charset="utf-8">
+
+        {% stylesheet 'main' %}
+        <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
+        <script>
+        L.mapbox.accessToken = '{% mapbox_access_token %}';
+
+        </script>
+    </head>
+    <body>
+        <header>
+            TourTracker
+        </header>
+
+        <section class="content">
+        {% block content %}
+
+        {% endblock content %}
+        </section>
+
+        <footer>
+            Copyright Chris Sinchok 2015
+        </footer>
+        {% javascript 'main' %}
+    </body>
+</html>
