@@ -40,7 +40,8 @@ INSTALLED_APPS = (
 
     'pipeline',
 
-    'tourtracker.core'
+    'tourtracker.rides',
+    'tourtracker.photos'
 )
 
 MIDDLEWARE_CLASSES = (

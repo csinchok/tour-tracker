@@ -6,7 +6,7 @@ from httmock import all_requests, HTTMock
 
 from django.test import TestCase
 
-from tourtracker.core.models import Ride
+from tourtracker.rides.models import Ride
 
 
 @all_requests

@@ -9,7 +9,8 @@ from httmock import all_requests, HTTMock
 from django.conf import settings
 from django.test import TestCase
 
-from tourtracker.core.models import Photo, Ride
+from tourtracker.rides.models import Ride
+from tourtracker.photos.models import Photo
 
 
 @all_requests
