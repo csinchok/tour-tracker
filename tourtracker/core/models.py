@@ -1,12 +1,14 @@
 import csv
+import os
 import exifread
 import json
 import requests
 import pytz
 
 from datetime import datetime, timedelta
-from django.db import models
 from django.conf import settings
+from django.core.files import File
+from django.db import models
 from django.utils import timezone
 
 
@@ -153,12 +155,18 @@ class PhotoManager(models.Manager):
                     photo.ride = rides[0]
 
             photo.save()
+            photo.src.save(os.path.basename(file_path), File(f))
+
             return photo
+
+
+def photo_upload_to(instance, filename):
+    return 'photos/{}/{}'.format(instance.pk, filename)
 
 
 class Photo(models.Model):
 
-    src = models.ImageField()
+    src = models.ImageField(upload_to=photo_upload_to)
     caption = models.CharField(max_length=255, null=True, blank=True)
     timestamp = models.DateTimeField()
 

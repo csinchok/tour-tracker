@@ -2,8 +2,11 @@ import datetime
 import json
 import os
 import pytz
+import shutil
+
 from httmock import all_requests, HTTMock
 
+from django.conf import settings
 from django.test import TestCase
 
 from tourtracker.core.models import Photo, Ride
@@ -31,8 +34,21 @@ def timezonedb_response(url, request):
 
 class ImageTest(TestCase):
 
-    def test_image_ingestion(self):
+    def setUp(self):
+        # Kill any existing media files...
+        photo_root = os.path.join(settings.MEDIA_ROOT, 'photos')
+        for item in os.listdir(photo_root):
+            if not item.endswith('README.md'):
+                shutil.rmtree(os.path.join(photo_root, item))
 
+    def tearDown(self):
+        # Kill any remaining media files...
+        photo_root = os.path.join(settings.MEDIA_ROOT, 'photos')
+        for item in os.listdir(photo_root):
+            if not item.endswith('README.md'):
+                shutil.rmtree(os.path.join(photo_root, item))
+
+    def test_image_ingestion(self):
         # Let's create a ride that this will match...
         ride_kwargs = {
             'start': datetime.datetime(
@@ -54,4 +70,5 @@ class ImageTest(TestCase):
         with HTTMock(timezonedb_response):
             photo = Photo.objects.create_from_file(file_path)
 
+        self.assertTrue(photo.src.path.endswith('photos/1/IMG_4430.JPG'))
         self.assertEqual(photo.ride, test_ride)

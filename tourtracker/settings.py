@@ -128,6 +128,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public/static')
 
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Pipeline #
 PIPELINE_CSS = {
     'main': {
