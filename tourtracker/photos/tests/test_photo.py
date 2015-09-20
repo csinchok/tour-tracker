@@ -61,7 +61,8 @@ class ImageTest(TestCase):
             'distance': 1.0,
             'average_speed': 1.0,
             'ride_time': datetime.timedelta(hours=5),
-            'stopped_time': datetime.timedelta(hours=1)
+            'stopped_time': datetime.timedelta(hours=1),
+            'map_ratio': 1
         }
 
         test_ride = Ride.objects.create(**ride_kwargs)

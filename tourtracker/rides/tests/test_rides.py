@@ -2,7 +2,6 @@ import datetime
 import json
 import os
 import pytz
-import shutil
 from httmock import all_requests, HTTMock
 
 from django.conf import settings
@@ -62,3 +61,6 @@ class RideTest(TestCase):
         self.assertEqual(len(ride.path['geometry']['coordinates']), 3240)
         self.assertEqual(ride.average_speed, 14.65)
         self.assertEqual(ride.distance, 20.63)
+        self.assertAlmostEqual(ride.map_ratio, 0.42046391)
+
+        self.assertTrue(ride.ride_file.path.endswith('test_ride.csv'))

@@ -17,6 +17,14 @@ class RideManager(models.Manager):
         coordinates = []
         ride = Ride(name='Ride')
 
+        map_bounds = {
+            'lat_min': 0,
+            'lat_max': 0,
+
+            'lon_min': 0,
+            'lon_max': 0
+        }
+
         with open(file_path, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
 
@@ -34,7 +42,32 @@ class RideManager(models.Manager):
 
                     # Now we record the ride start time
                     ride.start = datetime.strptime(row['Time'], date_fmt).replace(tzinfo=tz)
+
+                    map_bounds = {
+                        'lat_min': this_coord[1],
+                        'lat_max': this_coord[1],
+
+                        'lon_min': this_coord[0],
+                        'lon_max': this_coord[0]
+                    }
+                else:
+
+                    map_bounds = {
+                        'lat_min': min(this_coord[1], map_bounds['lat_min']),
+                        'lat_max': max(this_coord[1], map_bounds['lat_max']),
+
+                        'lon_min': min(this_coord[0], map_bounds['lon_min']),
+                        'lon_max': max(this_coord[0], map_bounds['lon_max'])
+                    }
+
             else:
+                """Let's save the "ratio" of the map. We'll use this to figure
+                out which template to use...
+                """
+                width = map_bounds['lon_max'] - map_bounds['lon_min']
+                height = map_bounds['lat_max'] - map_bounds['lat_min']
+                ride.map_ratio = width / float(height)
+
                 # Here, 'row' is the last row in the file...
                 ride.end = datetime.strptime(row['Time'], date_fmt).replace(tzinfo=tz)
                 ride.distance = float(row['Distance (miles)'])
@@ -70,6 +103,8 @@ class Ride(models.Model):
 
     name = models.CharField(max_length=255)
     _path = models.TextField()
+
+    map_ratio = models.FloatField()
 
     ride_file = models.FileField(upload_to='ride_files')
 
