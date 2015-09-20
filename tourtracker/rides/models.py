@@ -68,6 +68,8 @@ class Ride(models.Model):
     name = models.CharField(max_length=255)
     _path = models.TextField()
 
+    ride_file = models.FileField(upload_to='ride_files')
+
     start = models.DateTimeField()
     end = models.DateTimeField()
 

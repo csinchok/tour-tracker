@@ -1,13 +1,20 @@
+# python droppings
 *.py[co]
 __pycache__
 
+# pyvenv stuff
 bin
 include
 lib
+share
 pyvenv.cfg
 pip-selfcheck.json
 
+# on the local, we'll be using sqlite
 *.sqlite3
+
+# We're using sass, so let's not check in the css
+static/styles/*.css
 
 # Don't check in the static files...
 public/static
@@ -16,6 +23,7 @@ public/static
 # Don't check in the media files...
 public/media
 !public/media/photos/README.md
+!public/media/ride_files/README.md
 
 # Don't check in the settings...
 tourtracker/local.py

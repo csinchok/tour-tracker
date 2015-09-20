@@ -10,29 +10,98 @@ body {
   padding: 0;
 
   header {
-  	background-color: #DDD;
-  	padding: 25px;
+    background-color: #DDD;
+    padding: 25px;
   }
 
   footer {
-  	background-color: #DDD;
-  	padding: 25px;
+    background-color: #DDD;
+    padding: 25px;
   }
 
   .ride {
-  	max-width: 700px;
-	border: 1px solid black;
-	box-shadow: 5px 5px 5px #DDD;
-	margin: 25px auto;
+    max-width: 700px;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px #DDD;
+    margin: 25px auto;
 
-  	.description {
-	  	padding: 25px;
-  	}
+    .description {
+      padding: 25px;
+    }
 
-  	.map {
-  		width: 100%;
-  		height: 300px;
-  		background-color: blue;
-  	}
+    .grid {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+
+      height: 45vw;
+
+      display: flex;
+      flex-flow: row wrap;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .item {
+        position: relative;
+        margin: 0;
+
+        &.photo {
+          flex-grow: 1;
+          flex-basis: auto;
+          flex-shrink: 1;
+          width: 25%;
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+
+        &.map {
+          align-self: stretch;
+        }
+
+
+        &.aspect16x9 {
+          width: 100%;
+
+          &:before {
+            display: block;
+            content: "";
+            padding-top: 56.25%;
+          }
+        }
+
+        &.aspect1x1 {
+
+          width: 50%;
+
+          &:before {
+            display: block;
+            content: "";
+            padding-top: 100%;
+          }
+        }
+
+        &.aspect9x16 {
+
+          width: 33.3%;
+
+          &:before {
+            display: block;
+            content: "";
+            padding-top: 177.77%;
+          }
+        }
+
+        .content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+      }
+
+    }
   }
 }

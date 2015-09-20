@@ -1,6 +1,7 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 
 urlpatterns = [
     url(r'^$', 'tourtracker.rides.views.listing'),
-    url(r'^rides/(?P<pk>\d+)\.json$', 'tourtracker.rides.views.geojson')
+    url(r'^rides/', include('tourtracker.rides.urls')),
+    url(r'^photos/', include('tourtracker.photos.urls')),
 ]

@@ -76,6 +76,10 @@ class Photo(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
-    ride = models.ForeignKey(Ride, null=True, blank=True)
+    ride = models.ForeignKey(Ride, null=True, blank=True, related_name='photos')
 
     objects = PhotoManager()
+
+    @property
+    def thumbnail_url(self):
+        return '/photos/thumbnail/{}.jpg'.format(self.pk)
