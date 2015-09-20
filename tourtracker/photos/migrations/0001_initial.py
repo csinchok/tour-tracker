@@ -15,13 +15,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Photo',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('src', models.ImageField(upload_to=tourtracker.photos.models.photo_upload_to)),
-                ('caption', models.CharField(blank=True, max_length=255, null=True)),
+                ('caption', models.CharField(null=True, max_length=255, blank=True)),
                 ('timestamp', models.DateTimeField()),
-                ('latitude', models.FloatField(blank=True, null=True)),
-                ('longitude', models.FloatField(blank=True, null=True)),
-                ('ride', models.ForeignKey(blank=True, null=True, to='rides.Ride')),
+                ('latitude', models.FloatField(null=True, blank=True)),
+                ('longitude', models.FloatField(null=True, blank=True)),
+                ('ride', models.ForeignKey(to='rides.Ride', blank=True, related_name='photos', null=True)),
             ],
         ),
     ]

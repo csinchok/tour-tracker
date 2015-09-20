@@ -13,9 +13,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Ride',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('name', models.CharField(max_length=255)),
                 ('_path', models.TextField()),
+                ('ride_file', models.FileField(upload_to='ride_files')),
                 ('start', models.DateTimeField()),
                 ('end', models.DateTimeField()),
                 ('distance', models.FloatField()),

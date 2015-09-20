@@ -1,8 +1,10 @@
 import csv
 import json
+import os
 import pytz
-
 from datetime import datetime, timedelta
+
+from django.core.files import File
 from django.db import models
 
 from tourtracker.utils.timezonedb import get_timezone
@@ -50,6 +52,8 @@ class RideManager(models.Manager):
                     minutes=stopped_time[1],
                     seconds=stopped_time[2])
 
+            ride.ride_file.save(os.path.basename(file_path), File(csvfile))
+
         path_feature = {
             'type': 'Feature',
             'geometry': {
@@ -58,7 +62,6 @@ class RideManager(models.Manager):
             }
         }
         ride.path = path_feature
-
         ride.save()
         return ride
 

@@ -2,8 +2,10 @@ import datetime
 import json
 import os
 import pytz
+import shutil
 from httmock import all_requests, HTTMock
 
+from django.conf import settings
 from django.test import TestCase
 
 from tourtracker.rides.models import Ride
@@ -30,6 +32,20 @@ def timezonedb_response(url, request):
 
 
 class RideTest(TestCase):
+
+    def setUp(self):
+        # Kill any existing media files...
+        rides_root = os.path.join(settings.MEDIA_ROOT, 'ride_files')
+        for item in os.listdir(rides_root):
+            if not item.endswith('README.md'):
+                os.remove(os.path.join(rides_root, item))
+
+    def tearDown(self):
+        # Kill any remaining media files...
+        rides_root = os.path.join(settings.MEDIA_ROOT, 'ride_files')
+        for item in os.listdir(rides_root):
+            if not item.endswith('README.md'):
+                os.remove(os.path.join(rides_root, item))
 
     def test_csv_ingestion(self):
 
