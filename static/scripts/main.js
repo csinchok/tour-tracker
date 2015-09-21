@@ -5,22 +5,7 @@ function loadMap(el) {
       .loadURL('/rides/' + el.dataset.rideId + '.json');
 
   rideLayer.on('ready', function() {
-    console.log(rideLayer.getBounds());
-
-    var bounds = rideLayer.getBounds();
-    var width = Math.abs(bounds.getWest() - bounds.getEast());
-    var height = Math.abs(bounds.getNorth() - bounds.getSouth());
-
-    var ratio = width / height;
-
-    if (ratio >= (16 / 9)) {
-      el.classList.add('aspect16x9');
-    } else {
-      el.classList.add('aspect1x1');
-    }
-
     var map = L.mapbox.map(el.getElementsByClassName('content')[0], 'mapbox.streets', {zoomControl: false});
-
     map.dragging.disable();
     map.touchZoom.disable();
     map.doubleClickZoom.disable();
@@ -29,10 +14,6 @@ function loadMap(el) {
     rideLayer.addTo(map);
 
     map.fitBounds(rideLayer.getBounds());
-
-    setTimeout(function(){
-      map.invalidateSize()
-    }, 3000);
   });
 }
 

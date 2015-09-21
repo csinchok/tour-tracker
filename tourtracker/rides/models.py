@@ -128,3 +128,28 @@ class Ride(models.Model):
     @path.setter
     def path(self, data):
         self._path = json.dumps(data)
+
+    @property
+    def display_style(self):
+
+        styles = {
+            1.0: 'square',
+            (16 / 9.0): 'wide',
+            (1 / 4.0): 'narrow'
+        }
+
+        closest = 1.0
+        for ratio in styles:
+            if abs(ratio - self.map_ratio) < abs(closest - self.map_ratio):
+                closest = ratio
+
+        return styles[closest]
+
+    @property
+    def map_ratio_css(self):
+        percentage = (1 / self.map_ratio) * 100
+
+        if percentage > 150:
+            percentage = 150
+
+        return percentage

@@ -1,0 +1,32 @@
+{% extends "rides/base.html" %}
+
+{% block grid %}
+
+
+<div class="map-container">
+
+    <div class="map" style="" data-ride-id="{{ ride.id }}">
+        <div class="pusher"></div>
+        <div class="content"></div>
+    </div>
+
+    <div class="photo-container vertical">
+
+        <div class="item landscape">
+            <div class="pusher"></div>
+            <div class="content">
+                <img src="http://placehold.it/800x450">
+            </div>
+        </div>
+
+        <div class="item landscape">
+            <div class="pusher"></div>
+            <div class="content">
+                <img src="http://placehold.it/800x450">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock grid %}

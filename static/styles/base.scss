@@ -29,67 +29,71 @@ body {
       padding: 25px;
     }
 
-    .grid {
-      margin: 0;
-      padding: 0;
-      width: 100%;
+    &.narrow {
 
-      height: 45vw;
-
-      display: flex;
-      flex-flow: row wrap;
-      flex-direction: row;
-      flex-wrap: wrap;
-
-      .item {
-        position: relative;
+      .map-container {
+        width: 100%;
+        overflow: auto;
         margin: 0;
+        padding: 0;
 
-        &.photo {
-          flex-grow: 1;
-          flex-basis: auto;
-          flex-shrink: 1;
-          width: 25%;
+        display: flex;
+
+
+        .map {
+          width: 50%;
+
+          position: relative;
+          margin: 0;
+          flex-flow: column wrap;
+
+          .pusher {
+            display: block;
+            padding-top: 112.5%;
+          }
+
+          .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+          }
+        }
+
+        .photo-container {
+          display: flex;
+          width: 50%;
+
+          &.vertical {
+            flex-flow: column wrap;
+          }
+
           img {
             width: 100%;
             height: auto;
           }
         }
+      }
 
-        &.map {
-          align-self: stretch;
-        }
+      .item {
+        position: relative;
 
-
-        &.aspect16x9 {
-          width: 100%;
-
-          &:before {
+        &.landscape {
+          .pusher {
+            width: 100%;
             display: block;
             content: "";
             padding-top: 56.25%;
           }
         }
 
-        &.aspect1x1 {
-
-          width: 50%;
-
-          &:before {
+        &.portrait {
+          .pusher {
+            width: 100%;
             display: block;
             content: "";
-            padding-top: 100%;
-          }
-        }
-
-        &.aspect9x16 {
-
-          width: 33.3%;
-
-          &:before {
-            display: block;
-            content: "";
-            padding-top: 177.77%;
+            padding-top: 177.78%;
           }
         }
 
@@ -103,5 +107,6 @@ body {
       }
 
     }
+
   }
 }
