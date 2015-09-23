@@ -2,6 +2,9 @@
 *.py[co]
 __pycache__
 
+# Mac droppings
+.DS_Store
+
 # pyvenv stuff
 bin
 include
@@ -9,6 +12,9 @@ lib
 share
 pyvenv.cfg
 pip-selfcheck.json
+
+# Let's not cehck in node modules
+node_modules
 
 # on the local, we'll be using sqlite
 *.sqlite3

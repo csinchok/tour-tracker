@@ -7,10 +7,13 @@ from .models import Ride
 
 
 def listing(request):
-
     rides = Ride.objects.all()
-
     return render(request, 'listing.html', {'rides': rides})
+
+
+def detail(request, pk):
+    ride = get_object_or_404(Ride, pk=pk)
+    return render(request, 'detail.html', {'ride': ride})
 
 
 def geojson(request, pk):

@@ -122,6 +122,7 @@ STATICFILES_FINDERS = (
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'node_modules'),
 )
 
 STATIC_URL = '/static/'
@@ -135,6 +136,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media')
 PIPELINE_CSS = {
     'main': {
         'source_filenames': [
+            'rickshaw/rickshaw.min.css',
             'styles/base.scss'
         ],
         'output_filename': 'main.css'
@@ -144,6 +146,8 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'main': {
         'source_filenames': [
+            'd3/d3.min.js',
+            'rickshaw/rickshaw.min.js',
             'scripts/main.js'
         ],
         'output_filename': 'main.js',

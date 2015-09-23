@@ -48,7 +48,7 @@ class RideTest(TestCase):
 
     def test_csv_ingestion(self):
 
-        file_path = os.path.join(os.path.dirname(__file__), 'test_ride.csv')
+        file_path = os.path.join(os.path.dirname(__file__), 'test_rides/test_ride.csv')
 
         with HTTMock(timezonedb_response):
             ride = Ride.objects.create_from_cyclemeter(file_path)
@@ -58,7 +58,7 @@ class RideTest(TestCase):
             tzinfo=pytz.timezone('America/Chicago'))
         self.assertEqual(ride.start, expected_start)
 
-        self.assertEqual(len(ride.path['geometry']['coordinates']), 3240)
+        self.assertEqual(len(ride.geojson['geometry']['coordinates']), 3240)
         self.assertEqual(ride.average_speed, 14.65)
         self.assertEqual(ride.distance, 20.63)
         self.assertAlmostEqual(ride.map_ratio, 0.42046391)

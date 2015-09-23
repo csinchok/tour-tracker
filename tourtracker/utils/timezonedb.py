@@ -13,5 +13,8 @@ def get_timezone(lat, lng):
         'lat': lat,
         'lng': lng
     })
+
     zone_name = response.json()['zoneName']
+    if zone_name == '':
+        print(response.json())
     return pytz.timezone(zone_name)

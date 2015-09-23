@@ -9,104 +9,28 @@ body {
   margin: 0;
   padding: 0;
 
-  header {
-    background-color: #DDD;
-    padding: 25px;
+  .chart {
+    margin: 0;
+    padding: 0;
+
+    position: absolute;
+    height: 75px;
+    border-bottom: 3px solid #888;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
   }
 
-  footer {
-    background-color: #DDD;
-    padding: 25px;
-  }
+  .map {
+    margin: 0;
+    padding: 0;
 
-  .ride {
-    max-width: 700px;
-    border: 1px solid black;
-    box-shadow: 5px 5px 5px #DDD;
-    margin: 25px auto;
-
-    .description {
-      padding: 25px;
-    }
-
-    &.narrow {
-
-      .map-container {
-        width: 100%;
-        overflow: auto;
-        margin: 0;
-        padding: 0;
-
-        display: flex;
-
-
-        .map {
-          width: 50%;
-
-          position: relative;
-          margin: 0;
-          flex-flow: column wrap;
-
-          .pusher {
-            display: block;
-            padding-top: 112.5%;
-          }
-
-          .content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-          }
-        }
-
-        .photo-container {
-          display: flex;
-          width: 50%;
-
-          &.vertical {
-            flex-flow: column wrap;
-          }
-
-          img {
-            width: 100%;
-            height: auto;
-          }
-        }
-      }
-
-      .item {
-        position: relative;
-
-        &.landscape {
-          .pusher {
-            width: 100%;
-            display: block;
-            content: "";
-            padding-top: 56.25%;
-          }
-        }
-
-        &.portrait {
-          .pusher {
-            width: 100%;
-            display: block;
-            content: "";
-            padding-top: 177.78%;
-          }
-        }
-
-        .content {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-        }
-      }
-
-    }
-
+    position: absolute;
+    top: 75px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
   }
 }

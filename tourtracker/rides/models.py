@@ -4,6 +4,7 @@ import os
 import pytz
 from datetime import datetime, timedelta
 
+from django.core.cache import cache
 from django.core.files import File
 from django.db import models
 
@@ -14,7 +15,6 @@ class RideManager(models.Manager):
 
     def create_from_cyclemeter(self, file_path):
 
-        coordinates = []
         ride = Ride(name='Ride')
 
         map_bounds = {
@@ -32,8 +32,6 @@ class RideManager(models.Manager):
 
             for index, row in enumerate(reader):
                 this_coord = [float(row['Longitude']), float(row['Latitude'])]
-
-                coordinates.append(this_coord)
 
                 date_fmt = '%Y-%m-%d %H:%M:%S'
 
@@ -87,14 +85,6 @@ class RideManager(models.Manager):
 
             ride.ride_file.save(os.path.basename(file_path), File(csvfile))
 
-        path_feature = {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'LineString',
-                'coordinates': coordinates
-            }
-        }
-        ride.path = path_feature
         ride.save()
         return ride
 
@@ -102,8 +92,6 @@ class RideManager(models.Manager):
 class Ride(models.Model):
 
     name = models.CharField(max_length=255)
-    _path = models.TextField()
-
     map_ratio = models.FloatField()
 
     ride_file = models.FileField(upload_to='ride_files')
@@ -120,14 +108,33 @@ class Ride(models.Model):
     objects = RideManager()
 
     @property
-    def path(self):
-        data = json.loads(self._path)
-        data['properties'] = {}
-        return data
+    def geojson(self):
+        cache_key = 'geojson-{}'.format(self.id)
 
-    @path.setter
-    def path(self, data):
-        self._path = json.dumps(data)
+        if getattr(self, '_geojson', None):
+            return self._geojson
+
+        self._geojson = cache.get(cache_key)
+        if self._geojson is None:
+            coordinates = []
+
+            with open(self.ride_file.path, 'r') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    this_coord = [float(row['Longitude']), float(row['Latitude'])]
+                    coordinates.append(this_coord)
+
+            self._geojson = {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': coordinates
+                },
+                'properties': {}
+            }
+            cache.set(cache_key, self._geojson, 60 * 60)
+
+        return self._geojson
 
     @property
     def display_style(self):
