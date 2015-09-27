@@ -4,14 +4,14 @@
         <title>TourTracker</title>
 
         <meta charset="utf-8">
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
         {% stylesheet 'main' %}
-        <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
-        <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
+        <!-- mapbox code and init -->
         <script>
-        L.mapbox.accessToken = '{% mapbox_access_token %}';
-
+        var MAPBOX_TOKEN = '{% mapbox_access_token %}';
         </script>
+        <!-- end mapbox -->
     </head>
     <body>
         {% block content %}

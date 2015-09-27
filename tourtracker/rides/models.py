@@ -1,5 +1,4 @@
 import csv
-import json
 import os
 import pytz
 from datetime import datetime, timedelta
@@ -108,33 +107,31 @@ class Ride(models.Model):
     objects = RideManager()
 
     @property
-    def geojson(self):
-        cache_key = 'geojson-{}'.format(self.id)
+    def data(self):
+        cache_key = "ride-data-{}".format(self.id)
+        self._data = getattr(self, '_data', cache.get(cache_key))
 
-        if getattr(self, '_geojson', None):
-            return self._geojson
-
-        self._geojson = cache.get(cache_key)
-        if self._geojson is None:
-            coordinates = []
+        if not self._data:
+            # Load the data
+            self._data = []
 
             with open(self.ride_file.path, 'r') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    this_coord = [float(row['Longitude']), float(row['Latitude'])]
-                    coordinates.append(this_coord)
+                    coord = [float(row['Longitude']), float(row['Latitude'])]
 
-            self._geojson = {
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'LineString',
-                    'coordinates': coordinates
-                },
-                'properties': {}
-            }
-            cache.set(cache_key, self._geojson, 60 * 60)
+                    speed = {
+                        'm': float(row['Distance (miles)']),
+                        's': float(row['Speed (mph)']),
+                        'c': coord,
+                        't': row['Time'],
+                        'r': row['Temperature']
+                    }
+                    self._data.append(speed)
 
-        return self._geojson
+            cache.set(cache_key, self._data, 60 * 60)
+
+        return self._data
 
     @property
     def display_style(self):

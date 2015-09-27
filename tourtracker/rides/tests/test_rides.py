@@ -59,6 +59,7 @@ class RideTest(TestCase):
         self.assertEqual(ride.start, expected_start)
 
         self.assertEqual(len(ride.geojson['geometry']['coordinates']), 3240)
+        self.assertEqual(len(ride.speed_data), 3240)
         self.assertEqual(ride.average_speed, 14.65)
         self.assertEqual(ride.distance, 20.63)
         self.assertAlmostEqual(ride.map_ratio, 0.42046391)

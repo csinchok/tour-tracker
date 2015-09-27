@@ -2,7 +2,7 @@
   "name": "tour-racker",
   "version": "0.0.1",
   "devDependencies": {
-  	"d3": "~3.5.6",
-    "rickshaw":"~1.5.1"
+  	"mapbox-gl": "~0.11.0",
+  	"turf": "~2.0.2"
   }
 }

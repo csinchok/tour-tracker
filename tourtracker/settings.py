@@ -136,8 +136,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media')
 PIPELINE_CSS = {
     'main': {
         'source_filenames': [
-            'rickshaw/rickshaw.min.css',
-            'styles/base.scss'
+            'mapbox-gl/dist/mapbox-gl.css',
+
+            'styles/base.scss',
+            'styles/range.scss'
         ],
         'output_filename': 'main.css'
     },
@@ -146,8 +148,10 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'main': {
         'source_filenames': [
-            'd3/d3.min.js',
-            'rickshaw/rickshaw.min.js',
+            'turf/turf.min.js',
+            'mapbox-gl/dist/mapbox-gl.js',
+
+            'scripts/ride.js',
             'scripts/main.js'
         ],
         'output_filename': 'main.js',

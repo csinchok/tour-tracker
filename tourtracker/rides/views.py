@@ -16,15 +16,11 @@ def detail(request, pk):
     return render(request, 'detail.html', {'ride': ride})
 
 
-def geojson(request, pk):
+def ride_data(request, pk):
 
     ride = get_object_or_404(Ride, pk=pk)
-
-    data = {
-        'type': 'FeatureCollection',
-        'features': [
-            ride.path
-        ]
-    }
-
-    return JsonResponse(data)
+    return JsonResponse({
+        'average_speed': ride.average_speed,
+        'distance': ride.distance,
+        'data': ride.data
+    })
